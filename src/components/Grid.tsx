@@ -1,6 +1,6 @@
 import { styled } from "@mui/system";
 const Line = styled("line")`
-  stroke: ${({ theme }) => theme.primaryColor};
+  stroke: ${({ theme }) => theme?.custom?.primaryColor ?? "black"};
   stroke-width: 0.1;
 `;
 

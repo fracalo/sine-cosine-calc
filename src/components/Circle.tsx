@@ -1,7 +1,7 @@
 import { styled } from "@mui/system";
 
 const Circle = styled("circle")`
-  stroke: ${({ theme }) => theme.primaryColor};
+  stroke: ${({ theme }) => theme?.custom?.primaryColor ?? "black"};
   stroke-width: 0.1;
 `;
 

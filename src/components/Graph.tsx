@@ -2,9 +2,9 @@ import { styled } from "@mui/system";
 import Circle from "./Circle";
 import Grid from "./Grid";
 
-const Point = (props: { x: number; y: number }) => {
-  return <circle cx={props.x} cy={props.y} fill="red" r={1}></circle>;
-};
+const Point = (props: { cx: number; cy: number }) => (
+  <circle cx={props.cx} cy={props.cy} fill="red" r={1}></circle>
+);
 
 const Wrapper = styled("div")`
   max-width: 66vw;
@@ -37,7 +37,7 @@ const Graph = () => {
         </marker>
         <Circle cx={0} cy={0} r={50} fill="transparent" />
         <Grid />
-        <Circle cx={cx} cy={cy} r={1} fill="red" />
+        <Point cx={cx} cy={cy} />
       </Svg>
     </Wrapper>
   );
