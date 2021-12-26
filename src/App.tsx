@@ -1,5 +1,6 @@
 import "./App.css";
-import { createTheme, DefaultTheme, ThemeProvider, Theme } from "@mui/system";
+import { DefaultTheme, ThemeProvider, Theme } from "@mui/system";
+import { createTheme } from "@mui/material/styles";
 import Playground from "./components/Playground";
 import { ChangeEvent, EventHandler, useReducer, useState } from "react";
 import {
@@ -12,12 +13,18 @@ import {
 } from "@mui/material";
 
 const themeLight = createTheme({
+  palette: {
+    mode: "light",
+  },
   custom: {
     primaryBackground: "#fefefe",
     primaryColor: "#000",
   },
 });
 const themeDark = createTheme({
+  palette: {
+    mode: "dark",
+  },
   custom: {
     primaryBackground: "#282c34",
     primaryColor: "#fefefe",
@@ -38,9 +45,12 @@ const Wrapper = styled("div")`
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  background-color: ${({ theme }) =>
-    theme?.custom?.primaryBackground ?? "white"};
+  background-color: ${({ theme }) => theme.palette.background.default};
   transition: all 0.15s;
+`;
+
+const Title = styled("h1")`
+  color: ${({ theme }) => theme.palette.text.primary};
 `;
 function App() {
   const [theme, setTheme] = useState(themes.light);
@@ -50,39 +60,32 @@ function App() {
     setTheme(themes[k]);
     setOpt(k);
   };
-  const [age, setAge] = useState("");
 
-  const handleChange = (event: SelectChangeEvent<string>): void => {
-    setAge(event.target.value);
-  };
-
-  //<ThemeProvider theme={theme}>
-  //</ThemeProvider>
   return (
-    <Wrapper>
-      <div>
-        <FormControl sx={{ m: 1, minWidth: 80 }}>
-          <InputLabel id="demo-simple-select-autowidth-label">Age</InputLabel>
-          <Select
-            labelId="demo-simple-select-autowidth-label"
-            id="demo-simple-select-autowidth"
-            value={age}
-            onChange={handleChange}
-            autoWidth
-            label="Age"
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Twenty</MenuItem>
-            <MenuItem value={21}>Twenty one</MenuItem>
-            <MenuItem value={22}>Twenty one and a half</MenuItem>
-          </Select>
-        </FormControl>
-      </div>
-      <h1 className="title">Sine Cosine Interactive Playground</h1>
-      <Playground />
-    </Wrapper>
+    <ThemeProvider theme={theme}>
+      <Wrapper>
+        <div>
+          <FormControl sx={{ m: 1, minWidth: 80 }}>
+            <InputLabel id="demo-simple-select-autowidth-label">
+              Theme
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-autowidth-label"
+              id="demo-simple-select-autowidth"
+              value={opt}
+              onChange={(e) => themeSwitch(e.target.value as ThemeOpt)}
+              autoWidth
+              label="Theme"
+            >
+              <MenuItem value={"light"}>Light</MenuItem>
+              <MenuItem value={"dark"}>Dark</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+        <Title>Sine Cosine Interactive Playground</Title>
+        <Playground />
+      </Wrapper>
+    </ThemeProvider>
   );
 }
 

@@ -17,13 +17,17 @@ const Svg = styled("svg")`
   height: 100%;
 `;
 
+const Marker = styled("marker")`
+  fill: ${({ theme }) => theme.palette.text.primary};
+`;
+
 const Graph = () => {
   const cx = 50;
   const cy = 0;
   return (
     <Wrapper>
       <Svg viewBox="-70 -70 140 140">
-        <marker
+        <Marker
           id="Triangle"
           refX="14"
           refY="0"
@@ -34,7 +38,7 @@ const Graph = () => {
           viewBox="0 -10 15 20"
         >
           <path d="M 0 -10 L 0 10 L 15 0 z" />
-        </marker>
+        </Marker>
         <Circle cx={0} cy={0} r={50} fill="transparent" />
         <Grid />
         <Point cx={cx} cy={cy} />

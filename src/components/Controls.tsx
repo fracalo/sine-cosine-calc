@@ -8,7 +8,7 @@ const Wrapper = styled("div")`
 const Controls = () => {
   return (
     <Wrapper>
-      <Input sel="radian" val={6} />
+      <Input sel="radian" val={6} onChange={(e) => {}} />
     </Wrapper>
   );
 };
