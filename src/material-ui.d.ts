@@ -12,8 +12,10 @@ type ITheme = Theme & ExtraProps;
 declare module "@mui/system/createTheme" {
   interface Theme {
     custom: Custom;
+    toggleTheme?: Function;
   }
   interface ThemeOptions {
     custom?: Custom;
+    toggleTheme?: Function;
   }
 }
