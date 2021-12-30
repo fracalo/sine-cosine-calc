@@ -6,15 +6,21 @@ import cap from "lodash.capitalize";
 const themeLight = createTheme({
   palette: {
     mode: "light",
+    background: {
+      default: "#ededed",
+    },
   },
   custom: {
-    primaryBackground: "#fefefe",
+    primaryBackground: "purple",
     primaryColor: "#000",
   },
 });
 const themeDark = createTheme({
   palette: {
     mode: "dark",
+    background: {
+      default: "#333",
+    },
   },
   custom: {
     primaryBackground: "#282c34",
@@ -29,33 +35,3 @@ export const themes: Record<ThemeOpt, Theme> = {
   dark: themeDark,
   light: themeLight,
 };
-
-type ThemeSwitchProps = {
-  val: ThemeOpt;
-  themeSwitchHandle: (v: ThemeOpt) => void;
-};
-
-const ThemeSwitch = (props: ThemeSwitchProps) => (
-  <div>
-    <FormControl sx={{ m: 1, minWidth: 80 }}>
-      <InputLabel id="theme-select">Theme</InputLabel>
-      <Select
-        size="small"
-        labelId="theme-select"
-        id="demo-simple-select-autowidth"
-        value={props.val}
-        onChange={(e) => props.themeSwitchHandle(e.target.value as ThemeOpt)}
-        autoWidth
-        label="Theme"
-      >
-        {themeOptions.map((x) => (
-          <MenuItem key={x} value={x}>
-            {cap(x)}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-  </div>
-);
-
-export default ThemeSwitch;

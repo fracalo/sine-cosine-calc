@@ -1,8 +1,8 @@
 import { ThemeProvider } from "@mui/system";
 import Playground from "./Playground";
-import { useEffect, useState } from "react";
-import { Box, Grid, styled } from "@mui/material";
-import ThemeSwitch, { ThemeOpt, themes } from "./ThemeSwitch";
+import { useState } from "react";
+import { Grid, styled } from "@mui/material";
+import { themes } from "./ThemeSwitch";
 import ScaffoldingAppBar from "./Scaffolding/AppBar";
 
 const Wrapper = styled("div")`
@@ -19,6 +19,8 @@ const Wrapper = styled("div")`
 
 const Root = () => {
   const [theme, setTheme] = useState(themes.light);
+
+  console.log("theme", theme);
 
   themes.light.toggleTheme = () => {
     setTheme(themes.dark);

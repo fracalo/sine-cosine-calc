@@ -1,3 +1,4 @@
+import { Paper } from "@mui/material";
 import { styled } from "@mui/system";
 import Circle from "./Circle";
 import Grid from "./Grid";
@@ -6,10 +7,11 @@ const Point = (props: { cx: number; cy: number }) => (
   <circle cx={props.cx} cy={props.cy} fill="red" r={1}></circle>
 );
 
-const Wrapper = styled("div")`
+const Wrapper = styled(Paper)`
   max-width: 66vw;
   flex-grow: 1;
   height: 66vh;
+  padding: 2rem;
 `;
 
 const Svg = styled("svg")`
@@ -25,7 +27,7 @@ const Graph = () => {
   const cx = 50;
   const cy = 0;
   return (
-    <Wrapper>
+    <Wrapper elevation={5}>
       <Svg viewBox="-70 -70 140 140">
         <Marker
           id="Triangle"
