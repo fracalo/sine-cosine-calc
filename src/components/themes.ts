@@ -1,11 +1,13 @@
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { Theme } from "@mui/system";
-import cap from "lodash.capitalize";
+import { purple, green, deepOrange, grey } from "@mui/material/colors";
 
 const themeLight = createTheme({
   palette: {
     mode: "light",
+    primary: {
+      main: "#210c4a",
+    },
     background: {
       default: "#ededed",
     },
@@ -18,8 +20,16 @@ const themeLight = createTheme({
 const themeDark = createTheme({
   palette: {
     mode: "dark",
+    // palette values for dark mode
+    primary: deepOrange,
+    divider: deepOrange[700],
     background: {
-      default: "#333",
+      default: deepOrange[900],
+      paper: deepOrange[900],
+    },
+    text: {
+      primary: "#fff",
+      secondary: grey[500],
     },
   },
   custom: {

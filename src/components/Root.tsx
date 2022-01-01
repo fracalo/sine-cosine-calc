@@ -2,7 +2,7 @@ import { ThemeProvider } from "@mui/system";
 import Playground from "./Playground";
 import { useState } from "react";
 import { Grid, styled } from "@mui/material";
-import { themes } from "./ThemeSwitch";
+import { themes } from "./themes";
 import ScaffoldingAppBar from "./Scaffolding/AppBar";
 
 const Wrapper = styled("div")`
@@ -19,8 +19,6 @@ const Wrapper = styled("div")`
 
 const Root = () => {
   const [theme, setTheme] = useState(themes.light);
-
-  console.log("theme", theme);
 
   themes.light.toggleTheme = () => {
     setTheme(themes.dark);
