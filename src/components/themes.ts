@@ -1,6 +1,6 @@
+import { deepOrange, grey } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 import { Theme } from "@mui/system";
-import { purple, green, deepOrange, grey } from "@mui/material/colors";
 
 const themeLight = createTheme({
   palette: {
@@ -18,6 +18,22 @@ const themeLight = createTheme({
   },
 });
 const themeDark = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#210c4a",
+      dark: "#ff00ff",
+    },
+    background: {
+      default: "#333",
+    },
+  },
+  custom: {
+    primaryBackground: "#282c34",
+    primaryColor: "#fefefe",
+  },
+});
+const themeOrange = createTheme({
   palette: {
     mode: "dark",
     // palette values for dark mode

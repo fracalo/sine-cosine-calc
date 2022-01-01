@@ -20,7 +20,7 @@ const drawerWidth = 210;
 
 export default function ScaffoldingAppBar() {
   const theme = useTheme();
-  const toggleTheme = theme.toggleTheme as () => {};
+  const toggleTheme = theme.toggleTheme as (k: any) => () => {};
   const { mode } = theme.palette;
 
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -74,13 +74,13 @@ export default function ScaffoldingAppBar() {
               <ToggleButtonGroup color="primary" value={mode} exclusive>
                 <ToggleButton
                   value="dark"
-                  onClick={mode === "dark" ? noop : toggleTheme}
+                  onClick={mode === "dark" ? noop : toggleTheme("dark")}
                 >
                   dark
                 </ToggleButton>
                 <ToggleButton
                   value="light"
-                  onClick={mode === "light" ? noop : toggleTheme}
+                  onClick={mode === "light" ? noop : toggleTheme("light")}
                 >
                   light
                 </ToggleButton>

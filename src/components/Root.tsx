@@ -2,7 +2,7 @@ import { ThemeProvider } from "@mui/system";
 import Playground from "./Playground";
 import { useState } from "react";
 import { Grid, styled } from "@mui/material";
-import { themes } from "./themes";
+import { ThemeOpt, themes } from "./themes";
 import ScaffoldingAppBar from "./Scaffolding/AppBar";
 
 const Wrapper = styled("div")`
@@ -20,12 +20,11 @@ const Wrapper = styled("div")`
 const Root = () => {
   const [theme, setTheme] = useState(themes.light);
 
-  themes.light.toggleTheme = () => {
-    setTheme(themes.dark);
-  };
-  themes.dark.toggleTheme = () => {
-    setTheme(themes.light);
-  };
+  Object.values(themes).forEach((t) => {
+    t.toggleTheme = (k: ThemeOpt) => () => {
+      setTheme(themes[k]);
+    };
+  });
 
   return (
     <ThemeProvider theme={theme}>
