@@ -3,6 +3,8 @@ export type TrigValues = {
   degrees: number;
   sin: number;
   cos: number;
+  x: number;
+  y: number;
 };
 
 type ControlsProps = {

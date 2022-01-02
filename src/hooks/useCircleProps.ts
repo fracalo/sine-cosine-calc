@@ -3,10 +3,12 @@ import ControlsProps, { TrigValues } from "../types/ControlsProps";
 
 const useCircleProps = (): ControlsProps => {
   const [values, setValues] = useState<TrigValues>({
-    radians: 6,
-    degrees: 6,
-    sin: 6,
-    cos: 6,
+    radians: 0,
+    degrees: 0,
+    sin: 0,
+    cos: 1,
+    x: 1,
+    y: 0,
   });
   const changeHandle = (k: keyof TrigValues) => (v: number) => {
     const o = {
@@ -14,7 +16,6 @@ const useCircleProps = (): ControlsProps => {
       [k]: v,
     };
     setValues(o);
-    console.log(k, v, "and o is ", o);
   };
 
   const p: ControlsProps = {

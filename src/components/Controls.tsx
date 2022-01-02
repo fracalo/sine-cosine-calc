@@ -9,6 +9,9 @@ const PaperWrapper = styled(Paper)`
   flex-grow: 1;
 `;
 
+const mutableInputKeys = ["radians", "degrees", "sin", "cos"] as Array<
+  keyof TrigValues
+>;
 const Controls = ({ values, changeHandle }: ControlsProps) => {
   return (
     <Grid item xs={12} lg={4}>
@@ -16,7 +19,7 @@ const Controls = ({ values, changeHandle }: ControlsProps) => {
         <Typography align="left" gutterBottom>
           Controls
         </Typography>
-        {Object.entries(values).map(([k, v]) => (
+        {mutableInputKeys.map((k) => (
           <Box
             key={k}
             sx={{
@@ -25,7 +28,7 @@ const Controls = ({ values, changeHandle }: ControlsProps) => {
           >
             <TextField
               label={cap(k)}
-              value={v}
+              value={values[k]}
               type="number"
               inputProps={{
                 step: 0.1,
