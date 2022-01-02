@@ -1,16 +1,16 @@
-import { Box, Paper, Typography } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import Circle from "./Circle";
-import Grid from "./Grid";
+import GraphGrid from "./GraphGrid";
 
 const Point = (props: { cx: number; cy: number }) => (
-  <circle cx={props.cx} cy={props.cy} fill="red" r={1}></circle>
+  <circle cx={props.cx} cy={props.cy} fill="red" r={2}></circle>
 );
 
-const Wrapper = styled(Paper)`
-  max-width: 66vw;
+//height: 66vh;
+const PaperWrapper = styled(Paper)`
   flex-grow: 1;
-  height: 66vh;
+  height: 60vh;
   padding: 2rem;
   display: flex;
 `;
@@ -25,33 +25,37 @@ const Marker = styled("marker")`
 `;
 
 const Graph = () => {
-  const cx = 50;
+  const cx = 100;
   const cy = 0;
   return (
-    <Wrapper elevation={5}>
-      <Typography align="left" gutterBottom>
-        Graph
-      </Typography>
-      <Box>
-        <Svg viewBox="-70 -70 140 140">
-          <Marker
-            id="Triangle"
-            refX="14"
-            refY="0"
-            markerWidth="10"
-            markerHeight="16"
-            orient="auto"
-            fill="#000"
-            viewBox="0 -10 15 20"
-          >
-            <path d="M 0 -10 L 0 10 L 15 0 z" />
-          </Marker>
-          <Circle cx={0} cy={0} r={50} fill="transparent" />
-          <Grid />
-          <Point cx={cx} cy={cy} />
-        </Svg>
-      </Box>
-    </Wrapper>
+    <Grid item xs={12} lg={8}>
+      <PaperWrapper elevation={5}>
+        <Grid container direction="column">
+          <Typography align="left" gutterBottom>
+            Graph
+          </Typography>
+          <Grid item flexGrow={1}>
+            <Svg viewBox="-140 -140 280 280">
+              <Marker
+                id="Triangle"
+                refX="28"
+                refY="0"
+                markerWidth="20"
+                markerHeight="32"
+                orient="auto"
+                fill="#000"
+                viewBox="0 -20 30 40"
+              >
+                <path d="M 0 -20 L 0 20 L 30 0 z" />
+              </Marker>
+              <Circle cx={0} cy={0} r={100} fill="transparent" />
+              <GraphGrid />
+              <Point cx={cx} cy={cy} />
+            </Svg>
+          </Grid>
+        </Grid>
+      </PaperWrapper>
+    </Grid>
   );
 };
 

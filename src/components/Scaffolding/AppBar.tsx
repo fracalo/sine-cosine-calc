@@ -26,14 +26,14 @@ export default function ScaffoldingAppBar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <>
       <AppBar
-        position="fixed"
+        position="sticky"
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Sine Cosine Interactive Playground
+            Sine Cosine Calculator
           </Typography>
           <IconButton
             size="large"
@@ -90,6 +90,6 @@ export default function ScaffoldingAppBar() {
           <Divider />
         </Box>
       </Drawer>
-    </Box>
+    </>
   );
 }

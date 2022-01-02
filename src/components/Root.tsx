@@ -1,24 +1,34 @@
 import { ThemeProvider } from "@mui/system";
-import Playground from "./Playground";
 import { useState } from "react";
 import { Grid, styled } from "@mui/material";
 import { ThemeOpt, themes } from "./themes";
 import ScaffoldingAppBar from "./Scaffolding/AppBar";
+import Graph from "./Graph";
+import Controls from "./Controls";
+import useCircleProps from "../hooks/useCircleProps";
 
-const Wrapper = styled("div")`
-  text-align: center;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+const Wrapper = styled(Grid)`
+  min-height: calc(100vh - ${({ theme }) => theme.mixins.toolbar.minHeight}px);
+  height: calc(100vh - ${({ theme }) => theme.mixins.toolbar.minHeight}px);
   background-color: ${({ theme }) => theme.palette.background.default};
-  transition: all 0.15s;
-  padding: 0 2rem;
+  transition: all 0.1s;
+  padding: 2rem 2rem 0;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  @media (min-width: 0px) and (orientation: landscape) : {
+    min-height: calc(100vh - 48px);
+    height: calc(100vh - 48px);
+  }
+  @media (min-width: 600px) {
+    min-height: calc(100vh - 64px);
+    height: calc(100vh - 64px);
+  }
 `;
 
 const Root = () => {
   const [theme, setTheme] = useState(themes.light);
+  const controlProps = useCircleProps();
 
   Object.values(themes).forEach((t) => {
     t.toggleTheme = (k: ThemeOpt) => () => {
@@ -28,11 +38,10 @@ const Root = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <ScaffoldingAppBar></ScaffoldingAppBar>
-      <Wrapper>
-        <Grid container>
-          <Playground />
-        </Grid>
+      <ScaffoldingAppBar />
+      <Wrapper container spacing={5}>
+        <Graph />
+        <Controls {...controlProps} />
       </Wrapper>
     </ThemeProvider>
   );
