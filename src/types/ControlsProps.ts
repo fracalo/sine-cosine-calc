@@ -1,19 +1,22 @@
 export type ControlMutableValuesKeys = "radians" | "degrees" | "sin" | "cos";
+export type GraphMutableValuesKeys = "x" | "y";
 
 export type ControlMutableValues = Record<ControlMutableValuesKeys, number>;
+export type GraphMutableValues = Record<GraphMutableValuesKeys, number>;
+
+type InputPropsType = {
+  min: number;
+  max: number;
+  step: number;
+};
+
 export type ControlInputProps = {
-  inputProps: {
-    min: number;
-    max: number;
-    step: number;
-  };
+  inputProps: InputPropsType;
   toFixedVal: number;
 };
 
-export type TrigValues = ControlMutableValues & {
-  x: number;
-  y: number;
-};
+export type TrigValuesKeys = ControlMutableValuesKeys | GraphMutableValuesKeys;
+export type TrigValues = ControlMutableValues & GraphMutableValues;
 
 export type ChangeHandleType = (k: keyof TrigValues) => (v: number) => void;
 

@@ -1,5 +1,8 @@
 import { useReducer, useState } from "react";
-import ControlsProps, { TrigValues } from "../types/ControlsProps";
+import ControlsProps, {
+  TrigValues,
+  TrigValuesKeys,
+} from "../types/ControlsProps";
 
 const initialState = {
   radians: 0,
@@ -10,46 +13,73 @@ const initialState = {
   y: 0,
 };
 
-const sinActionToState = (state: TrigValues, sin: number) => {
-  const a = Math.asin(sin);
-  const cos = Math.cos(a) * (state.cos >= 0 ? 1 : -1);
-  return {
-    radians: a,
-    degrees: (a * 180) / Math.PI,
-    cos,
-    sin,
-    x: 1,
-    y: 0,
-  };
-};
-const cosActionToState = (state: TrigValues, cos: number) => {
-  const a = Math.acos(cos);
-  const sin = Math.sin(a) * (state.sin >= 0 ? 1 : -1);
-  return {
-    radians: a,
-    degrees: (a * 180) / Math.PI,
-    cos,
-    sin,
-    x: 1,
-    y: 0,
-  };
+const actionSwitchMap: Record<
+  TrigValuesKeys,
+  (state: TrigValues, val: number) => TrigValues
+> = {
+  sin: (state: TrigValues, sin: number) => {
+    const a = Math.asin(sin);
+    const cos = Math.cos(a) * (state.cos >= 0 ? 1 : -1);
+    return {
+      radians: a,
+      degrees: (a * 180) / Math.PI,
+      cos,
+      sin,
+      x: 1,
+      y: 0,
+    };
+  },
+  cos: (state: TrigValues, cos: number) => {
+    const a = Math.acos(cos);
+    const sin = Math.sin(a) * (state.sin >= 0 ? 1 : -1);
+    return {
+      radians: a,
+      degrees: (a * 180) / Math.PI,
+      cos,
+      sin,
+      x: 1,
+      y: 0,
+    };
+  },
+  degrees: (state: TrigValues, degrees: number) => {
+    const radians = (degrees * Math.PI) / 180;
+    const cos = Math.cos(radians);
+    const sin = Math.sin(radians);
+    return {
+      radians,
+      degrees,
+      cos,
+      sin,
+      x: 1,
+      y: 0,
+    };
+  },
+  radians: (state: TrigValues, radians: number) => {
+    const cos = Math.cos(radians);
+    const sin = Math.sin(radians);
+    return {
+      radians,
+      degrees: (radians * 180) / Math.PI,
+      cos,
+      sin,
+      x: 1,
+      y: 0,
+    };
+  },
+  x: (state: TrigValues, radians: number) => {
+    return state;
+  },
+  y: (state: TrigValues, radians: number) => {
+    return state;
+  },
 };
 
 const reducer = (
   state: TrigValues,
-  action: { type: string; value: number }
+  action: { type: TrigValuesKeys; value: number }
 ) => {
-  const type = action.type as keyof TrigValues;
-  if (type === "sin") {
-    return sinActionToState(state, action.value);
-  }
-  if (type === "cos") {
-    return cosActionToState(state, action.value);
-  }
-  if (type === "degrees") {
-  }
-
-  return state;
+  const cb = actionSwitchMap[action.type];
+  return cb(state, action.value);
 };
 
 const useCircleProps = (): ControlsProps => {
