@@ -1,15 +1,25 @@
-export type TrigValues = {
-  radians: number;
-  degrees: number;
-  sin: number;
-  cos: number;
+export type ControlMutableValuesKeys = "radians" | "degrees" | "sin" | "cos";
+
+export type ControlMutableValues = Record<ControlMutableValuesKeys, number>;
+export type ControlInputProps = {
+  inputProps: {
+    min: number;
+    max: number;
+    step: number;
+  };
+  toFixedVal: number;
+};
+
+export type TrigValues = ControlMutableValues & {
   x: number;
   y: number;
 };
 
+export type ChangeHandleType = (k: keyof TrigValues) => (v: number) => void;
+
 type ControlsProps = {
   values: TrigValues;
-  changeHandle: (k: keyof TrigValues) => (v: number) => void;
+  changeHandle: ChangeHandleType;
 };
 
 export default ControlsProps;

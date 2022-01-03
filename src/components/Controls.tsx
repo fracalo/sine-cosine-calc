@@ -1,7 +1,11 @@
-import { TextField, Typography, Paper, Grid } from "@mui/material";
+import { TextField, Typography, Paper, Grid, Slider } from "@mui/material";
 import { Box, styled } from "@mui/system";
-import ControlsProps, { TrigValues } from "../types/ControlsProps";
-import cap from "lodash.capitalize";
+import ControlsProps, {
+  ControlInputProps,
+  ControlMutableValues,
+  ControlMutableValuesKeys,
+} from "../types/ControlsProps";
+import ControlInput from "./ControlsInput";
 
 const PaperWrapper = styled(Paper)`
   padding: 2rem 1rem;
@@ -9,37 +13,67 @@ const PaperWrapper = styled(Paper)`
   flex-grow: 1;
 `;
 
-const mutableInputKeys = ["radians", "degrees", "sin", "cos"] as Array<
-  keyof TrigValues
->;
+const mutableInputKeys: Record<keyof ControlMutableValues, ControlInputProps> =
+  {
+    radians: {
+      inputProps: {
+        min: 0,
+        max: Math.PI * 2,
+        step: 0.001,
+      },
+      toFixedVal: 3,
+    },
+    degrees: {
+      inputProps: {
+        min: 0,
+        max: 360,
+        step: 0.1,
+      },
+      toFixedVal: 2,
+    },
+    cos: {
+      inputProps: {
+        min: -1,
+        max: 1,
+        step: 0.01,
+      },
+      toFixedVal: 4,
+    },
+    sin: {
+      inputProps: {
+        min: -1,
+        max: 1,
+        step: 0.01,
+      },
+      toFixedVal: 4,
+    },
+  };
 const Controls = ({ values, changeHandle }: ControlsProps) => {
   return (
     <Grid item xs={12} lg={4}>
       <PaperWrapper elevation={5}>
-        <Typography align="left" gutterBottom>
-          Controls
-        </Typography>
-        {mutableInputKeys.map((k) => (
-          <Box
-            key={k}
-            sx={{
-              p: "1rem 0",
-            }}
-          >
-            <TextField
-              label={cap(k)}
-              value={values[k]}
-              type="number"
-              inputProps={{
-                step: 0.1,
-              }}
-              onChange={(e) => {
-                const key = k as keyof TrigValues;
-                changeHandle(key)(Number(e.target.value));
-              }}
+        <Grid item>
+          <Typography align="left" gutterBottom>
+            Controls
+          </Typography>
+        </Grid>
+        {Object.entries(mutableInputKeys).map((args) => {
+          const [k, extraProps] = args as [
+            ControlMutableValuesKeys,
+            ControlInputProps
+          ];
+          const { toFixedVal } = extraProps;
+          const value = Number(values[k].toFixed(toFixedVal));
+          return (
+            <ControlInput
+              key={k}
+              value={value}
+              changeHandle={changeHandle}
+              extraProps={extraProps}
+              k={k}
             />
-          </Box>
-        ))}
+          );
+        })}
       </PaperWrapper>
     </Grid>
   );
