@@ -4,7 +4,7 @@ import ControlsProps, {
   ControlInputProps,
   ControlMutableValues,
   ControlMutableValuesKeys,
-} from "../types/ControlsProps";
+} from "../../types/ControlsProps";
 import ControlInput from "./ControlsInput";
 
 const PaperWrapper = styled(Paper)`

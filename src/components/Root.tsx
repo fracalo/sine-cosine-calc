@@ -2,7 +2,7 @@ import { ThemeProvider } from "@mui/system";
 import { useState } from "react";
 import { Grid, styled } from "@mui/material";
 import { ThemeOpt, themes } from "./themes";
-import ScaffoldingAppBar from "./Scaffolding/AppBar";
+import ScaffoldingAppBar from "./Scaffolding";
 import Graph from "./Graph";
 import Controls from "./Controls";
 import useCircleProps from "../hooks/useCircleProps";

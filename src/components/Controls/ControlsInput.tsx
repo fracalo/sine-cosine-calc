@@ -3,7 +3,7 @@ import {
   ChangeHandleType,
   ControlInputProps,
   ControlMutableValuesKeys,
-} from "../types/ControlsProps";
+} from "../../types/ControlsProps";
 import cap from "lodash.capitalize";
 
 const ControlsInput = (props: {
