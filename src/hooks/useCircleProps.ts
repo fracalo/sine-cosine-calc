@@ -1,4 +1,5 @@
-import { useReducer, useState } from "react";
+import { useReducer } from "react";
+
 import ControlsProps, {
   TrigValues,
   TrigValuesKeys,
@@ -7,10 +8,18 @@ import ControlsProps, {
 const initialState = {
   radians: 0,
   degrees: 0,
-  sin: 0,
   cos: 1,
+  sin: 0,
   x: 1,
   y: 0,
+};
+
+const calculateRadiansFromSinCos = (sin: number, cos: number) => {
+  let a = Math.asin(sin);
+  if (cos > 0) {
+    return sin > 0 ? a : Math.PI * 2 + a;
+  }
+  return Math.PI - a;
 };
 
 const actionSwitchMap: Record<
@@ -20,25 +29,29 @@ const actionSwitchMap: Record<
   sin: (state: TrigValues, sin: number) => {
     const a = Math.asin(sin);
     const cos = Math.cos(a) * (state.cos >= 0 ? 1 : -1);
+    const radians = calculateRadiansFromSinCos(sin, state.cos);
+    const degrees = (radians * 180) / Math.PI;
     return {
-      radians: a,
-      degrees: (a * 180) / Math.PI,
+      radians,
+      degrees,
       cos,
       sin,
-      x: 1,
-      y: 0,
+      x: cos,
+      y: sin * -1,
     };
   },
   cos: (state: TrigValues, cos: number) => {
     const a = Math.acos(cos);
     const sin = Math.sin(a) * (state.sin >= 0 ? 1 : -1);
+    const radians = calculateRadiansFromSinCos(state.sin, cos);
+    const degrees = (radians * 180) / Math.PI;
     return {
-      radians: a,
-      degrees: (a * 180) / Math.PI,
+      radians,
+      degrees,
       cos,
       sin,
-      x: 1,
-      y: 0,
+      x: cos,
+      y: sin * -1,
     };
   },
   degrees: (state: TrigValues, degrees: number) => {
@@ -50,8 +63,8 @@ const actionSwitchMap: Record<
       degrees,
       cos,
       sin,
-      x: 1,
-      y: 0,
+      x: cos,
+      y: sin * -1,
     };
   },
   radians: (state: TrigValues, radians: number) => {
@@ -62,14 +75,14 @@ const actionSwitchMap: Record<
       degrees: (radians * 180) / Math.PI,
       cos,
       sin,
-      x: 1,
-      y: 0,
+      x: cos,
+      y: sin * -1,
     };
   },
-  x: (state: TrigValues, radians: number) => {
+  x: (state: TrigValues, x: number) => {
     return state;
   },
-  y: (state: TrigValues, radians: number) => {
+  y: (state: TrigValues, y: number) => {
     return state;
   },
 };

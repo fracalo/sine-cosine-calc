@@ -16,6 +16,7 @@ export type ControlInputProps = {
 };
 
 export type TrigValuesKeys = ControlMutableValuesKeys | GraphMutableValuesKeys;
+
 export type TrigValues = ControlMutableValues & GraphMutableValues;
 
 export type ChangeHandleType = (k: keyof TrigValues) => (v: number) => void;

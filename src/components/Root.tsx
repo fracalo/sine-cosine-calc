@@ -40,7 +40,7 @@ const Root = () => {
     <ThemeProvider theme={theme}>
       <ScaffoldingAppBar />
       <Wrapper container spacing={5}>
-        <Graph />
+        <Graph {...controlProps} />
         <Controls {...controlProps} />
       </Wrapper>
     </ThemeProvider>

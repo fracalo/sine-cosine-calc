@@ -1,5 +1,6 @@
 import { Grid, Paper, Typography } from "@mui/material";
 import { styled } from "@mui/system";
+import ControlsProps from "../../types/ControlsProps";
 import Circle from "./Circle";
 import GraphGrid from "./GraphGrid";
 
@@ -24,9 +25,9 @@ const Marker = styled("marker")`
   fill: ${({ theme }) => theme.palette.text.primary};
 `;
 
-const Graph = () => {
-  const cx = 100;
-  const cy = 0;
+const Graph = ({ values, changeHandle }: ControlsProps) => {
+  const cx = values.x * 100;
+  const cy = values.y * 100;
   return (
     <Grid item xs={12} lg={8}>
       <PaperWrapper elevation={5}>
