@@ -8,21 +8,24 @@ import Controls from "./Controls";
 import useCircleProps from "../hooks/useCircleProps";
 
 const Wrapper = styled(Grid)`
-  min-height: calc(100vh - ${({ theme }) => theme.mixins.toolbar.minHeight}px);
-  height: calc(100vh - ${({ theme }) => theme.mixins.toolbar.minHeight}px);
+  min-height: 100vh;
+  height: 100vh;
   background-color: ${({ theme }) => theme.palette.background.default};
   transition: all 0.1s;
   padding: 2rem 2rem 0;
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
+  margin-top: ${({ theme }) => theme.mixins.toolbar.minHeight}px;
   @media (min-width: 0px) and (orientation: landscape) : {
     min-height: calc(100vh - 48px);
     height: calc(100vh - 48px);
+    margin-top: 48px;
   }
   @media (min-width: 600px) {
     min-height: calc(100vh - 64px);
     height: calc(100vh - 64px);
+    margin-top: 64px;
   }
 `;
 
