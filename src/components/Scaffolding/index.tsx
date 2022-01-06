@@ -28,7 +28,7 @@ export default function ScaffoldingAppBar() {
   return (
     <>
       <AppBar
-        position="sticky"
+        position="fixed"
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
         <Toolbar>

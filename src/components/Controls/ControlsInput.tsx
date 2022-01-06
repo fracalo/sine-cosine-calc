@@ -27,8 +27,9 @@ const ControlsInput = (props: {
             width: "8rem",
           }}
           size="small"
+          id={`${k}-input`}
           label={cap(k)}
-          inputProps={inputProps}
+          inputProps={{ ...inputProps, "aria-label": `${k} input control` }}
           value={value}
           type="number"
           onChange={(e) => {
@@ -43,7 +44,7 @@ const ControlsInput = (props: {
           }}
         >
           <Slider
-            aria-label={`${k} input control`}
+            aria-label={`${k} slider control`}
             size="small"
             value={value}
             {...inputProps}

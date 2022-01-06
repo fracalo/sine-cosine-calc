@@ -5,6 +5,7 @@ import ControlsProps, {
   ControlMutableValues,
   ControlMutableValuesKeys,
 } from "../../types/ControlsProps";
+import roundDecimal from "../../util/roundDecimal";
 import ControlInput from "./ControlsInput";
 
 const PaperWrapper = styled(Paper)`
@@ -21,7 +22,7 @@ const mutableInputKeys: Record<keyof ControlMutableValues, ControlInputProps> =
         max: Math.PI * 2,
         step: 0.001,
       },
-      toFixedVal: 3,
+      toFixedVal: 5,
     },
     degrees: {
       inputProps: {
@@ -37,7 +38,7 @@ const mutableInputKeys: Record<keyof ControlMutableValues, ControlInputProps> =
         max: 1,
         step: 0.01,
       },
-      toFixedVal: 4,
+      toFixedVal: 6,
     },
     sin: {
       inputProps: {
@@ -45,7 +46,7 @@ const mutableInputKeys: Record<keyof ControlMutableValues, ControlInputProps> =
         max: 1,
         step: 0.01,
       },
-      toFixedVal: 4,
+      toFixedVal: 6,
     },
   };
 const Controls = ({ values, changeHandle }: ControlsProps) => {
@@ -63,7 +64,7 @@ const Controls = ({ values, changeHandle }: ControlsProps) => {
             ControlInputProps
           ];
           const { toFixedVal } = extraProps;
-          const value = Number(values[k].toFixed(toFixedVal));
+          const value = roundDecimal(values[k], toFixedVal);
           return (
             <ControlInput
               key={k}

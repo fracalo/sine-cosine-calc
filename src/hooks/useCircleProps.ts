@@ -1,4 +1,5 @@
 import { useReducer } from "react";
+import ActionTypes from "../types/ActionTypes";
 
 import ControlsProps, {
   TrigValues,
@@ -29,7 +30,7 @@ const actionSwitchMap: Record<
   sin: (state: TrigValues, sin: number) => {
     const a = Math.asin(sin);
     const cos = Math.cos(a) * (state.cos >= 0 ? 1 : -1);
-    const radians = calculateRadiansFromSinCos(sin, state.cos);
+    const radians = calculateRadiansFromSinCos(sin, cos);
     const degrees = (radians * 180) / Math.PI;
     return {
       radians,
@@ -43,7 +44,7 @@ const actionSwitchMap: Record<
   cos: (state: TrigValues, cos: number) => {
     const a = Math.acos(cos);
     const sin = Math.sin(a) * (state.sin >= 0 ? 1 : -1);
-    const radians = calculateRadiansFromSinCos(state.sin, cos);
+    const radians = calculateRadiansFromSinCos(sin, cos);
     const degrees = (radians * 180) / Math.PI;
     return {
       radians,
@@ -87,10 +88,7 @@ const actionSwitchMap: Record<
   },
 };
 
-const reducer = (
-  state: TrigValues,
-  action: { type: TrigValuesKeys; value: number }
-) => {
+const reducer = (state: TrigValues, action: ActionTypes) => {
   const cb = actionSwitchMap[action.type];
   return cb(state, action.value);
 };
