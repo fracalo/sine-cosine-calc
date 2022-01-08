@@ -1,0 +1,17 @@
+name: first-custom-action
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: Linux
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker build -t docker-builder -f DockerfileForBuild .
+      - run: docker run --name docker-builder-run --mount type=bind,source=/srv/www/fcalo-sin-cos,target=/app/public-def docker-builder
+      - run: docker rm docker-builder-run
+      - run: docker rmi docker-builder
+      - run: echo goodbye $(whoami)
+
