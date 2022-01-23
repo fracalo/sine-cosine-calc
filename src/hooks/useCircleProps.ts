@@ -106,16 +106,11 @@ const useCircleProps = (): ControlsProps => {
     },
     []
   );
-  const changeGraphHandle = useCallback(
-    throttle(
-      (value: { x: number; y: number }) => {
-        dispatch({ type: "x_y", value });
-      },
-      20,
-      { leading: true, trailing: true }
-    ),
-    []
-  );
+  const changeGraphHandle = useCallback((value: { x: number; y: number }) => {
+    requestAnimationFrame(() => {
+      dispatch({ type: "x_y", value });
+    });
+  }, []);
 
   const p: ControlsProps = {
     values,
