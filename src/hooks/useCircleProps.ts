@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useCallback, useReducer } from "react";
 import ActionTypes from "../types/ActionTypes";
 
 import ControlsProps, {
@@ -89,6 +89,9 @@ const actionSwitchMap: Record<
 };
 
 const reducer = (state: TrigValues, action: ActionTypes) => {
+  if (action.type === "x_y") {
+    return graphMoveHandle(action.value);
+  }
   const cb = actionSwitchMap[action.type];
   return cb(state, action.value);
 };
@@ -96,15 +99,38 @@ const reducer = (state: TrigValues, action: ActionTypes) => {
 const useCircleProps = (): ControlsProps => {
   const [values, dispatch] = useReducer(reducer, initialState);
 
-  const changeHandle = (k: keyof TrigValues) => (v: number) => {
-    dispatch({ type: k, value: v });
-  };
+  const changeHandle = useCallback(
+    (k: TrigValuesKeys) => (v: number) => {
+      dispatch({ type: k, value: v });
+    },
+    []
+  );
+  const changeGraphHandle = useCallback((value: { x: number; y: number }) => {
+    dispatch({ type: "x_y", value });
+  }, []);
 
   const p: ControlsProps = {
     values,
     changeHandle,
+    changeGraphHandle,
   };
   return p;
 };
+
+function graphMoveHandle(params: { x: number; y: number }) {
+  const { x, y } = params;
+  const sin = y * -1;
+  const cos = x;
+  const radians = calculateRadiansFromSinCos(sin, cos);
+  const degrees = (radians * 180) / Math.PI;
+  return {
+    radians,
+    degrees,
+    sin,
+    cos,
+    x,
+    y,
+  };
+}
 
 export default useCircleProps;

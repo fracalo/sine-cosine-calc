@@ -24,6 +24,7 @@ export type ChangeHandleType = (k: keyof TrigValues) => (v: number) => void;
 type ControlsProps = {
   values: TrigValues;
   changeHandle: ChangeHandleType;
+  changeGraphHandle: (pos: { x: number; y: number }) => void;
 };
 
 export default ControlsProps;
