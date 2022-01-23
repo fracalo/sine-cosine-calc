@@ -38,7 +38,6 @@ const Point = (props: {
   );
 };
 
-//height: 66vh;
 const PaperWrapper = styled(Paper)`
   flex-grow: 1;
   height: 60vh;

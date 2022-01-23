@@ -1,5 +1,6 @@
 import { useCallback, useReducer } from "react";
 import ActionTypes from "../types/ActionTypes";
+import { throttle } from "lodash";
 
 import ControlsProps, {
   TrigValues,
@@ -105,9 +106,16 @@ const useCircleProps = (): ControlsProps => {
     },
     []
   );
-  const changeGraphHandle = useCallback((value: { x: number; y: number }) => {
-    dispatch({ type: "x_y", value });
-  }, []);
+  const changeGraphHandle = useCallback(
+    throttle(
+      (value: { x: number; y: number }) => {
+        dispatch({ type: "x_y", value });
+      },
+      20,
+      { leading: true, trailing: true }
+    ),
+    []
+  );
 
   const p: ControlsProps = {
     values,
