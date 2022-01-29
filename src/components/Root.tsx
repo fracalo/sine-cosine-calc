@@ -14,7 +14,7 @@ const Wrapper = styled(Grid)`
   transition: all 0.1s;
   padding: 2rem 2rem 0;
   flex: 1;
-  overflow-y: auto;
+  /*overflow-y: auto;*/
   overflow-x: hidden;
   margin-top: ${({ theme }) => theme.mixins.toolbar.minHeight}px;
   @media (min-width: 0px) and (orientation: landscape) : {
@@ -31,6 +31,7 @@ const Wrapper = styled(Grid)`
 
 const Root = () => {
   const [theme, setTheme] = useState(themes.light);
+  const [overflowY, setOverflowY] = useState(true);
   const controlProps = useCircleProps();
 
   Object.values(themes).forEach((t) => {
@@ -42,8 +43,14 @@ const Root = () => {
   return (
     <ThemeProvider theme={theme}>
       <ScaffoldingAppBar />
-      <Wrapper container spacing={5}>
-        <Graph {...controlProps} />
+      <Wrapper
+        container
+        spacing={5}
+        sx={{
+          overflowY: overflowY ? "auto" : "hidden",
+        }}
+      >
+        <Graph setOverflowY={setOverflowY} {...controlProps} />
         <Controls {...controlProps} />
       </Wrapper>
     </ThemeProvider>
