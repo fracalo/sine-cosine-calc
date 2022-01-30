@@ -49,10 +49,19 @@ const mutableInputKeys: Record<keyof ControlMutableValues, ControlInputProps> =
       toFixedVal: 6,
     },
   };
-const Controls = ({ values, changeHandle }: ControlsProps) => {
+const Controls = ({
+  values,
+  changeHandle,
+  draggingStateOff,
+}: ControlsProps & { draggingStateOff: boolean }) => {
   return (
     <Grid item xs={12} lg={4}>
-      <PaperWrapper elevation={5}>
+      <PaperWrapper
+        elevation={5}
+        sx={{
+          pointerEvents: draggingStateOff ? "initial" : "none",
+        }}
+      >
         <Grid item>
           <Typography align="left" gutterBottom>
             Controls

@@ -17,21 +17,24 @@ const Wrapper = styled(Grid)`
   /*overflow-y: auto;*/
   overflow-x: hidden;
   margin-top: ${({ theme }) => theme.mixins.toolbar.minHeight}px;
+  padding-bottom: ${({ theme }) => theme.mixins.toolbar.minHeight}px;
   @media (min-width: 0px) and (orientation: landscape) : {
     min-height: calc(100vh - 48px);
     height: calc(100vh - 48px);
     margin-top: 48px;
+    padding-bottom: 48px;
   }
   @media (min-width: 600px) {
     min-height: calc(100vh - 64px);
     height: calc(100vh - 64px);
     margin-top: 64px;
+    padding-bottom: 64px;
   }
 `;
 
 const Root = () => {
   const [theme, setTheme] = useState(themes.light);
-  const [overflowY, setOverflowY] = useState(true);
+  const [draggingStateOff, setDraggingStateOff] = useState(true);
   const controlProps = useCircleProps();
 
   Object.values(themes).forEach((t) => {
@@ -47,11 +50,11 @@ const Root = () => {
         container
         spacing={5}
         sx={{
-          overflowY: overflowY ? "auto" : "hidden",
+          overflowY: draggingStateOff ? "auto" : "hidden",
         }}
       >
-        <Graph setOverflowY={setOverflowY} {...controlProps} />
-        <Controls {...controlProps} />
+        <Graph setDraggingStateOff={setDraggingStateOff} {...controlProps} />
+        <Controls draggingStateOff={draggingStateOff} {...controlProps} />
       </Wrapper>
     </ThemeProvider>
   );

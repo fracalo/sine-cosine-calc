@@ -15,13 +15,13 @@ const Point = (props: {
   cx: number;
   cy: number;
   moveHandle: (e: MouseEvent | TouchEvent) => void;
-  setOverflowY: (b: boolean) => void;
+  setDraggingStateOff: (b: boolean) => void;
 }) => {
-  const { cx, cy, moveHandle, setOverflowY } = props;
+  const { cx, cy, moveHandle, setDraggingStateOff } = props;
   useEffect(() => {
     const upHandle = () => {
       document.body.style.cursor = "initial";
-      setOverflowY(true);
+      setDraggingStateOff(true);
       document.removeEventListener(
         isMobile ? "touchmove" : "mousemove",
         moveHandle
@@ -32,12 +32,12 @@ const Point = (props: {
       upHandle();
       document.removeEventListener(isMobile ? "touchend" : "mouseup", upHandle);
     };
-  }, [moveHandle, setOverflowY]);
+  }, [moveHandle, setDraggingStateOff]);
 
   const startHandle = () => {
     document.body.style.cursor = "grabbing";
     document.addEventListener(isMobile ? "touchmove" : "mousemove", moveHandle);
-    setOverflowY(false);
+    setDraggingStateOff(false);
   };
   return (
     <circle
@@ -47,7 +47,7 @@ const Point = (props: {
       cx={cx}
       cy={cy}
       fill="red"
-      r={2}
+      r={isMobile ? 17 : 3}
     ></circle>
   );
 };
@@ -56,7 +56,7 @@ const PaperWrapper = styled(Paper)`
   flex-grow: 1;
   padding: 2rem;
   display: flex;
-  @media (min-width: 666px) {
+  @media (min-width: 666px) and (orientation: portrait) {
     height: 60vh;
   }
 `;
@@ -64,7 +64,7 @@ const PaperWrapper = styled(Paper)`
 const Svg = styled("svg")`
   width: auto;
   height: calc(80vw - 3rem);
-  @media (min-width: 666px) {
+  @media (min-width: 666px) and (orientation: portrait) {
     height: 100%;
   }
   & .sin-cos-indicator:hover {
@@ -79,8 +79,8 @@ const Marker = styled("marker")`
 const Graph = ({
   values,
   changeGraphHandle,
-  setOverflowY,
-}: ControlsProps & { setOverflowY: (b: boolean) => void }) => {
+  setDraggingStateOff,
+}: ControlsProps & { setDraggingStateOff: (b: boolean) => void }) => {
   const lgOrUp = useMediaQuery("(min-width:1200px)");
   const cx = values.x * 100;
   const cy = values.y * 100;
@@ -141,7 +141,7 @@ const Graph = ({
                 <Circle cx={0} cy={0} r={100} fill="transparent" />
                 <GraphGrid />
                 <Point
-                  setOverflowY={setOverflowY}
+                  setDraggingStateOff={setDraggingStateOff}
                   moveHandle={moveHandle}
                   cx={cx}
                   cy={cy}
