@@ -1,5 +1,5 @@
-import { TextField, Typography, Paper, Grid, Slider } from "@mui/material";
-import { Box, styled } from "@mui/system";
+import { Typography, Paper, Grid } from "@mui/material";
+import { styled } from "@mui/system";
 import ControlsProps, {
   ControlInputProps,
   ControlMutableValues,

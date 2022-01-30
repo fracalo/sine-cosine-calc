@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { Grid, Paper, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import ControlsProps from "../../types/ControlsProps";

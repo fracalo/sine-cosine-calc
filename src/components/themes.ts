@@ -20,10 +20,7 @@ const themeLight = createTheme({
 const themeDark = createTheme({
   palette: {
     mode: "dark",
-    primary: {
-      main: "#210c4a",
-      dark: "#ff00ff",
-    },
+    primary: deepOrange,
     background: {
       default: "#333",
     },

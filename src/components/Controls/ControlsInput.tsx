@@ -47,6 +47,7 @@ const ControlsInput = (props: {
             aria-label={`${k} slider control`}
             size="small"
             value={value}
+            color="primary"
             {...inputProps}
             onChange={(_, v) => {
               const val = v as number;
