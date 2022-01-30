@@ -5,12 +5,8 @@ import ControlsProps from "../../types/ControlsProps";
 import Circle from "./Circle";
 import GraphGrid from "./GraphGrid";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { isMobile } from "react-device-detect";
 
-const isMobile =
-  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent
-  );
-// some code..
 const Point = (props: {
   cx: number;
   cy: number;
@@ -56,15 +52,19 @@ const PaperWrapper = styled(Paper)`
   flex-grow: 1;
   padding: 2rem;
   display: flex;
-  @media (min-width: 666px) and (orientation: portrait) {
+  @media (min-width: 666px) and (orientation: landscape) {
     height: 60vh;
+  }
+  @media (min-width: 666px) and (pointer: none),
+    (min-width: 666px) and (pointer: coarse) {
+    height: 90vh;
   }
 `;
 
 const Svg = styled("svg")`
   width: auto;
   height: calc(80vw - 3rem);
-  @media (min-width: 666px) and (orientation: portrait) {
+  @media (min-width: 666px) and (orientation: landscape) {
     height: 100%;
   }
   & .sin-cos-indicator:hover {
@@ -82,6 +82,7 @@ const Graph = ({
   setDraggingStateOff,
 }: ControlsProps & { setDraggingStateOff: (b: boolean) => void }) => {
   const lgOrUp = useMediaQuery("(min-width:1200px)");
+  const isPortrait = useMediaQuery("(orientation: portrait)");
   const cx = values.x * 100;
   const cy = values.y * 100;
   const svgRef = useRef(null);
@@ -102,15 +103,8 @@ const Graph = ({
     },
     [changeGraphHandle]
   );
-  return (
-    <Grid
-      item
-      xs={12}
-      lg={8}
-      sx={{
-        paddingTop: lgOrUp ? "inherit" : "0 !important",
-      }}
-    >
+  const inner = (
+    <>
       <PaperWrapper elevation={5}>
         <Grid container direction="column">
           <Grid item>
@@ -151,6 +145,22 @@ const Graph = ({
           </Grid>
         </Grid>
       </PaperWrapper>
+    </>
+  );
+  return isMobile && !isPortrait ? (
+    <Grid item xs={6} sx={{ paddingTop: "0 !important" }}>
+      {inner}
+    </Grid>
+  ) : (
+    <Grid
+      item
+      xs={12}
+      lg={8}
+      sx={{
+        paddingTop: lgOrUp ? "inherit" : "0 !important",
+      }}
+    >
+      {inner}
     </Grid>
   );
 };

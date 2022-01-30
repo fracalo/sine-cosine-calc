@@ -1,4 +1,4 @@
-import { Typography, Paper, Grid } from "@mui/material";
+import { Typography, Paper, Grid, useMediaQuery } from "@mui/material";
 import { styled } from "@mui/system";
 import ControlsProps, {
   ControlInputProps,
@@ -7,6 +7,7 @@ import ControlsProps, {
 } from "../../types/ControlsProps";
 import roundDecimal from "../../util/roundDecimal";
 import ControlInput from "./ControlsInput";
+import { isMobile } from "react-device-detect";
 
 const PaperWrapper = styled(Paper)`
   padding: 2rem 1rem;
@@ -54,8 +55,9 @@ const Controls = ({
   changeHandle,
   draggingStateOff,
 }: ControlsProps & { draggingStateOff: boolean }) => {
-  return (
-    <Grid item xs={12} lg={4}>
+  const isPortrait = useMediaQuery("(orientation: portrait)");
+  const inner = (
+    <>
       <PaperWrapper
         elevation={5}
         sx={{
@@ -85,6 +87,15 @@ const Controls = ({
           );
         })}
       </PaperWrapper>
+    </>
+  );
+  return isMobile && !isPortrait ? (
+    <Grid item xs={6} sx={{ paddingTop: "0 !important" }}>
+      {inner}
+    </Grid>
+  ) : (
+    <Grid item xs={12} lg={4}>
+      {inner}
     </Grid>
   );
 };
