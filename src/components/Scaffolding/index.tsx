@@ -5,6 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import GHIcon from "@mui/icons-material/GitHub";
 import {
   Divider,
   Drawer,
@@ -15,6 +16,7 @@ import {
   useTheme,
 } from "@mui/material";
 import noop from "lodash.noop";
+const ghLink = "https://github.com/fracalo/sine-cosine-calc";
 
 const drawerWidth = 210;
 
@@ -35,6 +37,18 @@ export default function ScaffoldingAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Sine Cosine Calculator
           </Typography>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 1 }}
+            onClick={() => {
+              window.open(ghLink);
+            }}
+          >
+            <GHIcon sx={{ fill: "#fff" }} />
+          </IconButton>
           <IconButton
             size="large"
             edge="start"
@@ -89,6 +103,15 @@ export default function ScaffoldingAppBar() {
           </List>
           <Divider />
         </Box>
+        <Typography variant="caption" sx={{ padding: "1rem" }}>
+          This app isn't using any tracking mechanism,
+          <br />
+          for any feedback feel free to reach out on{" "}
+          <a target="_blank" href={ghLink}>
+            Github
+          </a>
+          .
+        </Typography>
       </Drawer>
     </>
   );
