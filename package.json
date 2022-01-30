@@ -63,6 +63,7 @@
     "@types/lodash": "^4.14.178",
     "@types/lodash.capitalize": "^4.2.6",
     "@types/lodash.noop": "^3.0.6",
-    "jest-watch-typeahead": "^0.6.5"
+    "jest-watch-typeahead": "^0.6.5",
+    "follow-redirects": ">=1.14.7"
   }
 }
