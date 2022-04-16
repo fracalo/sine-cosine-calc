@@ -1,6 +1,5 @@
 import { useCallback, useReducer } from "react";
 import ActionTypes from "../types/ActionTypes";
-import { throttle } from "lodash";
 
 import ControlsProps, {
   TrigValues,
