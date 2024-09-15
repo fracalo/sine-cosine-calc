@@ -2,7 +2,7 @@ name: first-custom-action
 on:
   push:
     branches:
-      - master
+      - unexisting
 
 jobs:
   build-and-deploy:

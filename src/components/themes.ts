@@ -30,6 +30,7 @@ const themeDark = createTheme({
     primaryColor: "#fefefe",
   },
 });
+/* eslint-disable-next-line */
 const themeOrange = createTheme({
   palette: {
     mode: "dark",

@@ -11,8 +11,8 @@
     "@testing-library/react": "^11.2.7",
     "@types/jest": "^26.0.24",
     "@types/node": "^12.20.38",
-    "@types/react": "^16.14.21",
-    "@types/react-dom": "^16.9.14",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
     "lodash.capitalize": "^4.2.1",
     "lodash.noop": "^3.0.1",
     "react": "^18.0.0",
@@ -34,6 +34,7 @@
     "workbox-strategies": "^5.1.4",
     "workbox-streams": "^5.1.4"
   },
+  "homepage": "./",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -64,7 +65,7 @@
     "@types/lodash": "^4.14.178",
     "@types/lodash.capitalize": "^4.2.6",
     "@types/lodash.noop": "^3.0.6",
-    "jest-watch-typeahead": "^0.6.5",
-    "follow-redirects": ">=1.14.7"
+    "follow-redirects": ">=1.14.7",
+    "jest-watch-typeahead": "^0.6.5"
   }
 }

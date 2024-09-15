@@ -107,7 +107,7 @@ export default function ScaffoldingAppBar() {
           This app isn't using any tracking mechanism,
           <br />
           for any feedback feel free to reach out on{" "}
-          <a target="_blank" href={ghLink}>
+          <a target="_blank" rel="noreferrer" href={ghLink}>
             Github
           </a>
           .
